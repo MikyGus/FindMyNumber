@@ -13,14 +13,16 @@ namespace FindMyNumber
             var rnd = new Random();
             int SecretNumber = rnd.Next(MinRange,MaxRange+1);
             int UserGuessed;
+            bool foundSecret = false;
 
             for (int i = 0; i < TotalTries; i++)
             {
-                UserGuessed = GetIntFromUser(PromptForInput);
+                UserGuessed = ConsoleInput.GetInt(PromptForInput);
 
                 if (UserGuessed == SecretNumber)
                 {
                     Console.WriteLine($"You guessed correctly with only {i+1} tries.");
+                    foundSecret = true;
                     break;
                 }
                 else if (UserGuessed > SecretNumber)
@@ -34,22 +36,20 @@ namespace FindMyNumber
 
             }
 
-        }
-
-        static int GetIntFromUser(string prompt = "")
-        {
-            string ReceivedInput;
-            int InputToReturn;
-            Console.Write(prompt);
-            ReceivedInput = Console.ReadLine();
-
-            while (!int.TryParse(ReceivedInput, out InputToReturn))
+            if (foundSecret)
             {
-                Console.WriteLine("You must enter a number!");
-                Console.Write(prompt);
-                ReceivedInput = Console.ReadLine();
+                string[] Message = { "CONTRATULATIONS! YOU FOUND MY SECRET NUMBER!" };
+                ConsolePrint.PrintMessages(Message);
             }
-            return InputToReturn;
+            else
+            {
+                string[] Message = {
+                    "SORRY, YOU DIDN'T FIND MY SECRET NUMBER!",
+                    $"MY SECRET WAS: {SecretNumber}"
+                };
+                ConsolePrint.PrintMessages(Message);
+            }
+
         }
     }
 }
