@@ -12,12 +12,11 @@ namespace FindMyNumber
             string PromptForInput = $"Guess a number ({MinRange}-{MaxRange}): ";
             var rnd = new Random();
             int SecretNumber = rnd.Next(MinRange,MaxRange+1);
-            int UserGuessed;
             bool foundSecret = false;
 
             for (int i = 0; i < TotalTries; i++)
             {
-                UserGuessed = ConsoleInput.GetInt(PromptForInput);
+                int UserGuessed = ConsoleInput.GetInt(PromptForInput);
 
                 if (UserGuessed == SecretNumber)
                 {
